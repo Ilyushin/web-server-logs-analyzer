@@ -1,0 +1,24 @@
+{
+  "name": "web-log-analyzer",
+  "version": "1.0.0",
+  "description": "Helps to analyze logs which were collected by the Apache web server.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ilyushin/web-server-logs-analyzer.git"
+  },
+  "keywords": [
+    "apache",
+    "log",
+    "analyze"
+  ],
+  "author": "Ilyushin Evgeniy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Ilyushin/web-server-logs-analyzer/issues"
+  },
+  "homepage": "https://github.com/Ilyushin/web-server-logs-analyzer#readme"
+}
