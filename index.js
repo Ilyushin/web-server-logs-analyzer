@@ -3,28 +3,45 @@ const path = require('path');
 const LineByLineReader = require('line-by-line');
 
 let pathToLogs = './';
-const indxParam = process.argv.indexOf('-path');
-if (indxParam !== -1) {
-  pathToLogs = process.argv[indxParam + 1];
+let indx = process.argv.indexOf('-path');
+if (indx !== -1) {
+  pathToLogs = process.argv[indx + 1];
 }
 
-let pattern;
-const indxPattern = process.argv.indexOf('-pattern');
-if (indxPattern !== -1) {
-  pattern = process.argv[indxPattern + 1];
+let includePattern;
+indx = process.argv.indexOf('-include');
+if (indx !== -1) {
+  includePattern = process.argv[indx + 1];
 }
 
-if (!pattern) {
+if (!includePattern) {
   return console.log('Need to pass a pattern');
 }
 
-function includesPattern(str) {
+let excludePattern;
+indx = process.argv.indexOf('-exclude');
+if (indx !== -1) {
+  excludePattern = process.argv[indx + 1];
+}
+
+if (!includePattern) {
+  return console.log('Need to pass a pattern');
+}
+
+function checkPatterns(str) {
   let result = true;
-  pattern.split(' ').forEach((word) => {
+  includePattern.split(' ').forEach((word) => {
     if (!str.includes(word)) {
       result = false;
     }
   });
+
+  excludePattern.split(' ').forEach((word) => {
+    if (str.includes(word)) {
+      result = false;
+    }
+  });
+
   return result;
 }
 
@@ -38,7 +55,7 @@ function getReadFile(pathLog) {
     lr.on('line', (line) => {
       lr.pause();
 
-      if (includesPattern(line)) {
+      if (checkPatterns(line)) {
         console.log(line);
         result.push(1);
       }
